@@ -48,7 +48,8 @@ qmake QMAKE_CXXFLAGS=-DQT_NO_ACCESSIBILITY -- \
     -feature-webengine-system-ffmpeg \
     -feature-webengine-proprietary-codecs \
     -no-feature-webengine-system-icu \
-    -no-feature-webengine-system-glib
+    -no-feature-webengine-system-glib \
+    -no-feature-webengine-webrtc
 
 make
 make INSTALL_ROOT="$1" install
