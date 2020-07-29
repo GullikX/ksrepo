@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DFLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth
+cmake --build build
+
+DESTDIR="$1" cmake --build build --target install
