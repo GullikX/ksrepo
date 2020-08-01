@@ -1,0 +1,9 @@
+eudev
+libX11
+libXau
+libXext
+libXi
+libXinerama
+libXrandr
+libXrender
+libxcb

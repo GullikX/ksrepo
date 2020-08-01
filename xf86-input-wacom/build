@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --with-systemd-unit-dir=no \
+    --with-udev-rules-dir=/lib/udev/rules.d
+
+make
+make DESTDIR="$1" install
