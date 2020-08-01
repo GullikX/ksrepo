@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+go build -o "$1/usr/bin/fzf"
+install -Dm644 man/man1/fzf.1 "$1/usr/share/man/man1/fzf.1"
+
+install -dm755 "$1/usr/share/fzf"
+install -m644 shell/*.bash shell/*.zsh "$1/usr/share/fzf"
