@@ -1,3 +1,0 @@
-#!/bin/sh -e
-
-install -Dm 755 src/wg-quick/linux.bash "$1/usr/bin/wg-quick"
