@@ -1,4 +1,10 @@
 #!/bin/sh -e
-
 make
-make PREFIX=/usr DESTDIR="$1" MANDIR=/usr/share/man/man1 install
+
+mkdir -p "$1"/usr/bin
+mkdir -p "$1"/usr/share/man/man1
+make \
+    PREFIX=/usr \
+    DESTDIR="$1" \
+    MANDIR=/usr/share/man/man1 \
+    install
