@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+rm web/compressed.tracemonkey-pldi-09.pdf
+rm -r web/cmaps
+
+mkdir -p "$1/usr/share/pdf.js"
+cp -r build web "$1/usr/share/pdf.js"
