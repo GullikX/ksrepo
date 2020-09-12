@@ -1,6 +1,8 @@
 # ksrepo
 Custom package repository for Keep it Simple Stupid Linux ([k1ss.org](https://k1ss.org))
 
+`git clone --recursive <url>`
+
 ## Modified packages
 * dejavu-ttf: Fix compile issue
 * fzf: Install keybindings for bash and zsh
