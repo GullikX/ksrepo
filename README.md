@@ -10,6 +10,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * wireguard-tools: Install wg-quick script
 
 ## Staging area
+* cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
 * glew: The OpenGL Extension Wrangler Library
 * glfw: Multi-platform library for creating windows with OpenGL contexts

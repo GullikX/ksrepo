@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck
+make DESTDIR="$1" MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck install
