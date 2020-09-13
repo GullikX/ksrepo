@@ -17,6 +17,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * pdfjs: PDF reader in javascript
 * sct: Lightweight utility to set the color temperature of the screen
+* valgrind: Tool for finding memory management bugs in programs
 * xf86-input-wacom: Xorg Wacom tablet input driver
 
 ## My own homemade applications
