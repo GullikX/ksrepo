@@ -7,7 +7,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * dejavu-ttf: Fix compile issue
 * fzf: Install keybindings for bash and zsh
 * qt5-webengine: Disable webrtc
-* wireguard-tools: Install wg-quick script
 
 ## Staging area
 * cppcheck: Static analysis tool for C/C++ code
