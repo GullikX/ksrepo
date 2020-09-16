@@ -6,6 +6,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 ## Modified packages
 * dejavu-ttf: Fix compile issue
 * fzf: Install keybindings for bash and zsh
+* lvm2: Disable udev
 * qt5-webengine: Disable webrtc
 
 ## Staging area
