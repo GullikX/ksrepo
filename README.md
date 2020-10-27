@@ -9,6 +9,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * lvm2: Disable udev
 * python: Add readline dependency
 * qt5-webengine: Disable webrtc
+* xf86-video-intel: Disable some assertions which sometimes causes crashes
 
 ## Staging area
 * cppcheck: Static analysis tool for C/C++ code
