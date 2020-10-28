@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Disable assertions which sometimes causes crashes
-sed -i 's/#ifndef NDEBUG/#if 0/g' src/sna/kgem.c
+sed -i "/config.set('BUILDER_DESCRIPTION', 1)/a config.set('NDEBUG', 1)" meson.build
 
 export DESTDIR="$1"
 export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
