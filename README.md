@@ -8,7 +8,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * fzf: Install keybindings for bash and zsh
 * lvm2: Disable udev
 * python: Add readline dependency
-* qt5-webengine: Disable webrtc
 * xf86-video-intel: Disable some assertions which sometimes causes crashes
 
 ## Staging area
@@ -19,7 +18,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * glfw: Multi-platform library for creating windows with OpenGL contexts
 * gtk+2: GObject-based multi-platform GUI toolkit (legacy, needed for browser)
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
-* pdfjs: PDF reader in javascript
 * sct: Lightweight utility to set the color temperature of the screen
 * valgrind: Tool for finding memory management bugs in programs
 * xf86-input-wacom: Xorg Wacom tablet input driver
