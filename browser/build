@@ -1,0 +1,43 @@
+#!/bin/sh -e
+
+# Build autoconf 2.13 for browser's sole use.
+(
+    cd autoconf2.13
+
+    ./configure \
+        --prefix="$PWD/../junk" \
+        --program-suffix=-2.13
+
+    make
+    make install
+)
+
+# Build yasm for browser's sole use.
+(
+    cd yasm
+
+    ./configure \
+        --prefix="$PWD/../junk"
+
+    make
+    make install
+)
+export PATH="$PWD/junk/bin:$PATH"
+
+mv uxp/* platform
+sed 's#%SRCDIR%#'"$(realpath .)"'#g' mozconfig.in > .mozconfig
+
+# Build fails without this file
+touch platform/.gdbinit
+
+export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
+
+./mach build
+./mach package
+
+mkdir -p "$1/usr/bin"
+mkdir -p "$1/usr/lib"
+
+cp -r objdir/dist/palemoon "$1/usr/lib/browser"
+mv "$1/usr/lib/browser/palemoon" "$1/usr/bin/browser"
+rm "$1/usr/lib/browser/palemoon-bin"

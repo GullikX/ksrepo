@@ -1,0 +1,4 @@
+alsa-lib
+gtk+2
+python2       make
+zip           make

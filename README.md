@@ -12,6 +12,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * xf86-video-intel: Disable some assertions which sometimes causes crashes
 
 ## Staging area
+* browser: Unofficial port of Pale Moon
 * cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
 * glew: The OpenGL Extension Wrangler Library
