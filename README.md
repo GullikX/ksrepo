@@ -16,6 +16,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
 * glew: The OpenGL Extension Wrangler Library
 * glfw: Multi-platform library for creating windows with OpenGL contexts
+* gtk+2: GObject-based multi-platform GUI toolkit (legacy, needed for browser)
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * pdfjs: PDF reader in javascript
 * sct: Lightweight utility to set the color temperature of the screen
