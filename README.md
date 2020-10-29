@@ -7,7 +7,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * dejavu-ttf: Fix compile issue
 * fzf: Install keybindings for bash and zsh
 * lvm2: Disable udev
-* xf86-video-intel: Disable some assertions which sometimes causes crashes
+* xf86-video-intel: Disable assertions
 
 ## Staging area
 * browser: Unofficial port of Pale Moon
