@@ -39,5 +39,4 @@ mkdir -p "$1/usr/bin"
 mkdir -p "$1/usr/lib"
 
 cp -r objdir/dist/palemoon "$1/usr/lib/browser"
-mv "$1/usr/lib/browser/palemoon" "$1/usr/bin/browser"
-rm "$1/usr/lib/browser/palemoon-bin"
+ln -s ../lib/browser/palemoon "$1/usr/bin/browser"
