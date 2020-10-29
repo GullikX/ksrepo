@@ -7,7 +7,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * dejavu-ttf: Fix compile issue
 * fzf: Install keybindings for bash and zsh
 * lvm2: Disable udev
-* python: Add readline dependency
 * xf86-video-intel: Disable some assertions which sometimes causes crashes
 
 ## Staging area
