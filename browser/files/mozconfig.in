@@ -15,7 +15,6 @@ ac_add_options --enable-strip
 ac_add_options --enable-devtools
 ac_add_options --with-pthreads
 mk_add_options AUTOCLOBBER=1
-mk_add_options MOZ_OBJDIR=%SRCDIR%/objdir
 
 # Enable stuff
 ac_add_options --enable-alsa
