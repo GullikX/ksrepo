@@ -1,4 +1,5 @@
 alsa-lib
 gtk+2
+perl          make
 python2       make
 zip           make
