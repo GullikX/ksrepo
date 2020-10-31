@@ -19,6 +19,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * sct: Lightweight utility to set the color temperature of the screen
 * ttf-droid-sans: General-purpose fonts released by Google as part of Android
+* ttf-fantasque-sans-mono: A font family with a great monospaced variant for programmers
 * valgrind: Tool for finding memory management bugs in programs
 * xf86-input-wacom: Xorg Wacom tablet input driver
 
