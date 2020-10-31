@@ -25,6 +25,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * gwm: Task-based, tiling window manager
 
 ## Commit signing key
+```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBF+dU+gBEADR6a7A1EoW3v4oCbENzYe6c/cR6IwuVPjlIDo9+lO5GWuLxOLm
@@ -109,3 +110,4 @@ vMwlhGkPp+g9LINcDTU7Ikw1TmphiN/3jXzkMnm5tRTX9NacqT7F54wZ2ISyCrux
 +0DlOK/RMer73DSLXRx9z3gHxX5zl8RHRffgspCI3/5ImO4A
 =uI1S
 -----END PGP PUBLIC KEY BLOCK-----
+```
