@@ -18,6 +18,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * gtk+2: GObject-based multi-platform GUI toolkit (legacy, needed for browser)
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * sct: Lightweight utility to set the color temperature of the screen
+* ttf-droidsans: General-purpose fonts released by Google as part of Android
 * valgrind: Tool for finding memory management bugs in programs
 * xf86-input-wacom: Xorg Wacom tablet input driver
 
