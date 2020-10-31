@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+install -Dm644 DroidSans.ttf             "$1/usr/share/fonts/ttf-droidsans/DroidSans.ttf"
+install -Dm644 DroidSans-Bold.ttf        "$1/usr/share/fonts/ttf-droidsans/DroidSans-Bold.ttf"
+install -Dm644 DroidSansMono.ttf         "$1/usr/share/fonts/ttf-droidsans/DroidSansMono.ttf"
