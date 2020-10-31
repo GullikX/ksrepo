@@ -1,0 +1,5 @@
+#!/bin/sh -e
+install -Dm644 FantasqueSansMono-Bold.ttf       "$1/usr/share/fonts/fantasque-sans/FantasqueSansMono-Bold.ttf"
+install -Dm644 FantasqueSansMono-BoldItalic.ttf "$1/usr/share/fonts/fantasque-sans/FantasqueSansMono-BoldItalic.ttf"
+install -Dm644 FantasqueSansMono-Italic.ttf     "$1/usr/share/fonts/fantasque-sans/FantasqueSansMono-Italic.ttf"
+install -Dm644 FantasqueSansMono-Regular.ttf    "$1/usr/share/fonts/fantasque-sans/FantasqueSansMono-Regular.ttf"
