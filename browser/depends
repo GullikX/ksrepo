@@ -1,5 +1,5 @@
 alsa-lib
-gtk+2
+gtk+3
 libXt
 perl          make
 python2       make

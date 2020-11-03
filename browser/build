@@ -27,6 +27,10 @@ export PATH="$PWD/junk/bin:$PATH"
 mv uxp/* platform
 sed 's#%SRCDIR%#'"$(realpath .)"'#g' mozconfig.in > .mozconfig
 
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
 # Build fails without this file
 touch platform/.gdbinit
 
