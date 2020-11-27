@@ -59,7 +59,7 @@ index d63ca51ce..8a14f24e1 100644
  LOCAL_INCLUDES += [
      '/dom/base',
 diff --git a/platform/dom/plugins/base/npapi.h b/platform/dom/plugins/base/npapi.h
-index e554aaabc..f55d10511 100644
+index e554aaabc..949679773 100644
 --- a/platform/dom/plugins/base/npapi.h
 +++ b/platform/dom/plugins/base/npapi.h
 @@ -41,9 +41,9 @@
@@ -101,12 +101,8 @@ index e554aaabc..f55d10511 100644
    , NPDrawingModelSyncX = 6
  #endif
    , NPDrawingModelAsyncBitmapSurface = 7
-@@ -329,10 +329,10 @@ typedef enum {
-  *   gcc 3.x generated vtables on UNIX and OSX are incompatible with
-  *   previous compilers. Flash plugin binaries for Solaris were compiled
-  *   with Sun Studio, so this has to be false to make things work. This may
-- *   become a problem in the future when/if new plugins are compiled with 
-+ *   become a problem in the future when/if new plugins are compiled with
+@@ -332,7 +332,7 @@ typedef enum {
+  *   become a problem in the future when/if new plugins are compiled with 
   *   GCC, however.
   */
 -#if (defined(XP_UNIX) && defined(__GNUC__) && (__GNUC__ >= 3) && !defined(XP_SOLARIS))
@@ -351,7 +347,7 @@ index 0d4dc68cc..df23790e0 100644
      NPSetWindowCallbackStruct* ws_info =
      static_cast<NPSetWindowCallbackStruct*>(mPluginWindow->ws_info);
 diff --git a/platform/dom/plugins/base/nsPluginInstanceOwner.h b/platform/dom/plugins/base/nsPluginInstanceOwner.h
-index 2fa67c86e..979ec5d36 100644
+index 2fa67c86e..5246da985 100644
 --- a/platform/dom/plugins/base/nsPluginInstanceOwner.h
 +++ b/platform/dom/plugins/base/nsPluginInstanceOwner.h
 @@ -29,7 +29,7 @@ class nsPluginDOMContextMenuListener;
@@ -372,48 +368,8 @@ index 2fa67c86e..979ec5d36 100644
  #include "gfxXlibNativeRenderer.h"
  #endif
  
-@@ -59,16 +59,16 @@ public:
-   typedef mozilla::gfx::DrawTarget DrawTarget;
- 
-   nsPluginInstanceOwner();
--  
-+
-   NS_DECL_ISUPPORTS
-   NS_DECL_NSIPLUGININSTANCEOWNER
-   NS_DECL_NSIPRIVACYTRANSITIONOBSERVER
--  
-+
-   NS_IMETHOD GetURL(const char *aURL, const char *aTarget,
--                    nsIInputStream *aPostStream, 
-+                    nsIInputStream *aPostStream,
-                     void *aHeadersData, uint32_t aHeadersDataLen,
-                     bool aDoCheckLoadURIChecks) override;
--  
-+
-   NPBool     ConvertPoint(double sourceX, double sourceY, NPCoordinateSpace sourceSpace,
-                           double *destX, double *destY, NPCoordinateSpace destSpace) override;
- 
-@@ -94,30 +94,30 @@ public:
-    * @result - NS_OK if this operation was successful
-    */
-   NS_IMETHOD GetDOMElement(nsIDOMElement* * aResult);
--  
--  // nsIDOMEventListener interfaces 
-+
-+  // nsIDOMEventListener interfaces
-   NS_DECL_NSIDOMEVENTLISTENER
--  
-+
-   nsresult ProcessMouseDown(nsIDOMEvent* aKeyEvent);
-   nsresult ProcessKeyPress(nsIDOMEvent* aKeyEvent);
--  nsresult Destroy();  
-+  nsresult Destroy();
- 
- #ifdef XP_WIN
-   void Paint(const RECT& aDirty, HDC aDC);
- #elif defined(XP_MACOSX)
--  void Paint(const gfxRect& aDirtyRect, CGContextRef cgContext);  
-+  void Paint(const gfxRect& aDirtyRect, CGContextRef cgContext);
+@@ -108,7 +108,7 @@ public:
+   void Paint(const gfxRect& aDirtyRect, CGContextRef cgContext);  
    void RenderCoreAnimation(CGContextRef aCGContext, int aWidth, int aHeight);
    void DoCocoaEventDrawRect(const gfxRect& aDrawRect, CGContextRef cgContext);
 -#elif defined(MOZ_X11)
@@ -421,79 +377,16 @@ index 2fa67c86e..979ec5d36 100644
    void Paint(gfxContext* aContext,
               const gfxRect& aFrameRect,
               const gfxRect& aDirtyRect);
- #endif
- 
-   //locals
--  
-+
-   nsresult Init(nsIContent* aContent);
--  
-+
-   void* GetPluginPort();
-   void ReleasePluginPort(void* pluginPort);
- 
-@@ -131,7 +131,7 @@ public:
-   void SetWidgetWindowAsParent(HWND aWindowToAdopt);
-   nsresult SetNetscapeWindowAsParent(HWND aWindowToAdopt);
- #endif
--  
-+
- #ifdef XP_MACOSX
-   enum { ePluginPaintEnable, ePluginPaintDisable };
- 
-@@ -168,19 +168,19 @@ public:
-   nsPluginFrame* GetFrame();
- 
-   uint32_t GetLastEventloopNestingLevel() const {
--    return mLastEventloopNestingLevel; 
-+    return mLastEventloopNestingLevel;
-   }
--  
-+
-   static uint32_t GetEventloopNestingLevel();
--  
-+
-   void ConsiderNewEventloopNestingLevel() {
-     uint32_t currentLevel = GetEventloopNestingLevel();
--    
-+
-     if (currentLevel < mLastEventloopNestingLevel) {
-       mLastEventloopNestingLevel = currentLevel;
-     }
-   }
--  
-+
-   const char* GetPluginName()
-   {
-     if (mInstance && mPluginHost) {
-@@ -190,14 +190,14 @@ public:
-     }
+@@ -191,7 +191,7 @@ public:
      return "";
    }
--  
+   
 -#ifdef MOZ_X11
-+
 +#if 0
    void GetPluginDescription(nsACString& aDescription)
    {
      aDescription.Truncate();
-     if (mInstance && mPluginHost) {
-       nsCOMPtr<nsIPluginTag> pluginTag;
--      
-+
-       mPluginHost->GetPluginTagForInstance(mInstance,
-                                            getter_AddRefs(pluginTag));
-       if (pluginTag) {
-@@ -206,7 +206,7 @@ public:
-     }
-   }
- #endif
--  
-+
-   bool SendNativeEvents()
-   {
- #ifdef XP_WIN
-@@ -214,18 +214,18 @@ public:
+@@ -214,7 +214,7 @@ public:
      return mPluginWindow->type == NPWindowTypeDrawable &&
      (MatchPluginName("Shockwave Flash") ||
       MatchPluginName("Test Plug-in"));
@@ -502,46 +395,6 @@ index 2fa67c86e..979ec5d36 100644
      return true;
  #else
      return false;
- #endif
-   }
--  
-+
-   bool MatchPluginName(const char *aPluginName)
-   {
-     return strncmp(GetPluginName(), aPluginName, strlen(aPluginName)) == 0;
-   }
--  
-+
-   void NotifyPaintWaiter(nsDisplayListBuilder* aBuilder);
- 
-   // Returns the image container that has our currently displayed image.
-@@ -242,7 +242,7 @@ public:
-    * painting).
-    */
-   nsIntSize GetCurrentImageSize();
--  
-+
-   // Methods to update the background image we send to async plugins.
-   // The eventual target of these operations is PluginInstanceParent,
-   // but it takes several hops to get there.
-@@ -301,7 +301,7 @@ private:
-   bool mSentStartComposition;
-   bool mPluginDidNotHandleIMEComposition;
- #endif
-- 
-+
-   nsPluginNativeWindow       *mPluginWindow;
-   RefPtr<nsNPAPIPluginInstance> mInstance;
-   nsPluginFrame              *mPluginFrame;
-@@ -310,7 +310,7 @@ private:
-   bool                        mWidgetCreationComplete;
-   nsCOMPtr<nsIWidget>         mWidget;
-   RefPtr<nsPluginHost>      mPluginHost;
--  
-+
- #ifdef XP_MACOSX
-   static nsCOMPtr<nsITimer>                *sCATimer;
-   static nsTArray<nsPluginInstanceOwner*>  *sCARefreshListeners;
 @@ -328,7 +328,7 @@ private:
    uint32_t                    mLastEventloopNestingLevel;
    bool                        mContentFocused;
@@ -551,19 +404,6 @@ index 2fa67c86e..979ec5d36 100644
    // Used with windowless plugins only, initialized in CreateWidget().
    bool                        mFlash10Quirks;
  #endif
-@@ -343,10 +343,10 @@ private:
-   // returned true.
-   bool mUseAsyncRendering;
- #endif
--  
-+
-   // pointer to wrapper for nsIDOMContextMenuListener
-   RefPtr<nsPluginDOMContextMenuListener> mCXMenuListener;
--  
-+
-   nsresult DispatchKeyToPlugin(nsIDOMEvent* aKeyEvent);
-   nsresult DispatchMouseToPlugin(nsIDOMEvent* aMouseEvent,
-                                  bool aAllowPropagate = false);
 @@ -369,7 +369,7 @@ private:
  
    int mLastMouseDownButtonType;
@@ -574,47 +414,20 @@ index 2fa67c86e..979ec5d36 100644
    {
    public:
 diff --git a/platform/dom/plugins/base/nsPluginNativeWindow.cpp b/platform/dom/plugins/base/nsPluginNativeWindow.cpp
-index f9baf5b81..65884bb2d 100644
+index f9baf5b81..175f42ca4 100644
 --- a/platform/dom/plugins/base/nsPluginNativeWindow.cpp
 +++ b/platform/dom/plugins/base/nsPluginNativeWindow.cpp
-@@ -13,7 +13,7 @@
- #include "nsPluginNativeWindow.h"
- 
- class nsPluginNativeWindowPLATFORM : public nsPluginNativeWindow {
--public: 
-+public:
-   nsPluginNativeWindowPLATFORM();
-   virtual ~nsPluginNativeWindowPLATFORM();
- };
-@@ -21,19 +21,19 @@ public:
- nsPluginNativeWindowPLATFORM::nsPluginNativeWindowPLATFORM() : nsPluginNativeWindow()
- {
-   // initialize the struct fields
--  window = nullptr; 
--  x = 0; 
--  y = 0; 
--  width = 0; 
--  height = 0; 
-+  window = nullptr;
-+  x = 0;
-+  y = 0;
-+  width = 0;
-+  height = 0;
+@@ -27,7 +27,7 @@ nsPluginNativeWindowPLATFORM::nsPluginNativeWindowPLATFORM() : nsPluginNativeWin
+   width = 0; 
+   height = 0; 
    memset(&clipRect, 0, sizeof(clipRect));
 -#if defined(XP_UNIX) && !defined(XP_MACOSX)
 +#if 0
    ws_info = nullptr;
  #endif
    type = NPWindowTypeWindow;
- }
- 
--nsPluginNativeWindowPLATFORM::~nsPluginNativeWindowPLATFORM() 
-+nsPluginNativeWindowPLATFORM::~nsPluginNativeWindowPLATFORM()
- {
- }
- 
 diff --git a/platform/dom/plugins/ipc/NPEventUnix.h b/platform/dom/plugins/ipc/NPEventUnix.h
-index 4cc9a5456..ca43cef75 100644
+index 4cc9a5456..5474ba467 100644
 --- a/platform/dom/plugins/ipc/NPEventUnix.h
 +++ b/platform/dom/plugins/ipc/NPEventUnix.h
 @@ -9,7 +9,7 @@
@@ -626,15 +439,6 @@ index 4cc9a5456..ca43cef75 100644
  #include "mozilla/X11Util.h"
  #endif
  
-@@ -31,7 +31,7 @@ struct NPRemoteEvent {
- // Luckily, as of xorg 1.6.0 / X protocol 11 rev 0, the only pointer
- // field contained in any of these specific X*Event structs is a
- // |Display*|.  So to simplify serializing these XEvents, we make the
--// 
-+//
- // ********** XXX ASSUMPTION XXX **********
- //
- // that the process to which the event is forwarded shares the same
 @@ -61,7 +61,7 @@ struct ParamTraits<mozilla::plugins::NPRemoteEvent>     // synonym for XEvent
              return false;
          }
@@ -654,7 +458,7 @@ index 4cc9a5456..ca43cef75 100644
      static void SetXDisplay(XEvent& ev)
      {
 diff --git a/platform/dom/plugins/ipc/PluginInstanceChild.cpp b/platform/dom/plugins/ipc/PluginInstanceChild.cpp
-index a4f6b6b51..4a5a82af5 100644
+index a4f6b6b51..8b2dc7de1 100644
 --- a/platform/dom/plugins/ipc/PluginInstanceChild.cpp
 +++ b/platform/dom/plugins/ipc/PluginInstanceChild.cpp
 @@ -16,7 +16,7 @@
@@ -706,15 +510,6 @@ index a4f6b6b51..4a5a82af5 100644
      case NPNVToolkit:
          *((NPNToolkitType*)aValue) = NPNVGtk2;
          return NPERR_NO_ERROR;
-@@ -404,7 +404,7 @@ PluginInstanceChild::NPN_GetValue(NPNVariable aVar,
-         }
-         *(void **)aValue = mWsInfo.display;
-         return NPERR_NO_ERROR;
--    
-+
- #elif defined(OS_WIN)
-     case NPNVToolkit:
-         return NPERR_GENERIC_ERROR;
 @@ -462,7 +462,7 @@ PluginInstanceChild::NPN_GetValue(NPNVariable aVar,
              *static_cast<HWND*>(aValue) = mPluginWindowHWND;
              return NPERR_NO_ERROR;
@@ -751,85 +546,7 @@ index a4f6b6b51..4a5a82af5 100644
      if (GraphicsExpose == event.event.type) {
          // Make sure the X server completes the drawing before the parent
          // draws on top and destroys the Drawable.
-@@ -1001,17 +1001,17 @@ PluginInstanceChild::AnswerNPP_HandleEvent_Shmem(const NPRemoteEvent& event,
-                 *handled = false;
-                 *rtnmem = mem;
-                 return true;
--            } 
-+            }
-         }
-         if (!mShContext) {
-             void* cgContextByte = mem.get<char>();
--            mShContext = ::CGBitmapContextCreate(cgContextByte, 
-+            mShContext = ::CGBitmapContextCreate(cgContextByte,
-                               mWindow.width * scaleFactor,
--                              mWindow.height * scaleFactor, 8, 
--                              mWindow.width * 4 * scaleFactor, mShColorSpace, 
-+                              mWindow.height * scaleFactor, 8,
-+                              mWindow.width * 4 * scaleFactor, mShColorSpace,
-                               kCGImageAlphaPremultipliedFirst |
-                               kCGBitmapByteOrder32Host);
--    
-+
-             if (!mShContext) {
-                 PLUGIN_LOG_DEBUG(("Could not allocate CGBitmapContext."));
-                 *handled = false;
-@@ -1021,13 +1021,13 @@ PluginInstanceChild::AnswerNPP_HandleEvent_Shmem(const NPRemoteEvent& event,
-         }
-         CGRect clearRect = ::CGRectMake(0, 0, mWindow.width, mWindow.height);
-         ::CGContextClearRect(mShContext, clearRect);
--        evcopy.data.draw.context = mShContext; 
-+        evcopy.data.draw.context = mShContext;
-     } else {
-         PLUGIN_LOG_DEBUG(("Invalid event type for AnswerNNP_HandleEvent_Shmem."));
-         *handled = false;
-         *rtnmem = mem;
-         return true;
--    } 
-+    }
- 
-     if (!mPluginIface->event) {
-         *handled = false;
-@@ -1112,10 +1112,10 @@ PluginInstanceChild::AnswerNPP_HandleEvent_IOSurface(const NPRemoteEvent& event,
-         mCARenderer->AttachIOSurface(surf);
-         if (!mCARenderer->isInit()) {
-             void *caLayer = nullptr;
--            NPError result = mPluginIface->getvalue(GetNPP(), 
-+            NPError result = mPluginIface->getvalue(GetNPP(),
-                                      NPPVpluginCoreAnimationLayer,
-                                      &caLayer);
--            
-+
-             if (result != NPERR_NO_ERROR || !caLayer) {
-                 PLUGIN_LOG_DEBUG(("Plugin requested CoreAnimation but did not "
-                                   "provide CALayer."));
-@@ -1137,7 +1137,7 @@ PluginInstanceChild::AnswerNPP_HandleEvent_IOSurface(const NPRemoteEvent& event,
-                           "AnswerNNP_HandleEvent_IOSurface."));
-         *handled = false;
-         return false;
--    } 
-+    }
- 
-     mCARenderer->Render(mWindow.width, mWindow.height,
-                         mContentsScaleFactor, nullptr);
-@@ -1180,7 +1180,7 @@ PluginInstanceChild::RecvContentsScaleFactorChanged(const double& aContentsScale
- #if defined(XP_MACOSX)
-     if (mShContext) {
-         // Release the shared context so that it is reallocated
--        // with the new size. 
-+        // with the new size.
-         ::CGContextRelease(mShContext);
-         mShContext = nullptr;
-     }
-@@ -1195,23 +1195,23 @@ PluginInstanceChild::RecvContentsScaleFactorChanged(const double& aContentsScale
- #if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
- // Create a new window from NPWindow
- bool PluginInstanceChild::CreateWindow(const NPRemoteWindow& aWindow)
--{ 
-+{
-     PLUGIN_LOG_DEBUG(("%s (aWindow=<window: 0x%lx, x: %d, y: %d, width: %d, height: %d>)",
-                       FULLFUNCTION,
-                       aWindow.window,
+@@ -1202,7 +1202,7 @@ bool PluginInstanceChild::CreateWindow(const NPRemoteWindow& aWindow)
                        aWindow.x, aWindow.y,
                        aWindow.width, aWindow.height));
  
@@ -838,31 +555,15 @@ index a4f6b6b51..4a5a82af5 100644
      if (mXEmbed) {
          mWindow.window = reinterpret_cast<void*>(aWindow.window);
      }
-     else {
-         Window browserSocket = (Window)(aWindow.window);
-         xt_client_init(&mXtClient, mWsInfo.visual, mWsInfo.colormap, mWsInfo.depth);
--        xt_client_create(&mXtClient, browserSocket, mWindow.width, mWindow.height); 
-+        xt_client_create(&mXtClient, browserSocket, mWindow.width, mWindow.height);
-         mWindow.window = (void *)XtWindow(mXtClient.child_widget);
--    }  
-+    }
- #else
-     mWindow.window = reinterpret_cast<void*>(aWindow.window);
- #endif
-@@ -1231,10 +1231,10 @@ void PluginInstanceChild::DeleteWindow()
+@@ -1231,7 +1231,7 @@ void PluginInstanceChild::DeleteWindow()
    if (!mWindow.window)
        return;
  
 -#ifdef MOZ_WIDGET_GTK
--  if (mXtClient.top_widget) {     
 +#if 0
-+  if (mXtClient.top_widget) {
+   if (mXtClient.top_widget) {     
        xt_client_unrealize(&mXtClient);
--      xt_client_destroy(&mXtClient); 
-+      xt_client_destroy(&mXtClient);
-       mXtClient.top_widget = nullptr;
-   }
- #endif
+       xt_client_destroy(&mXtClient); 
 @@ -1290,7 +1290,7 @@ PluginInstanceChild::AnswerNPP_SetWindow(const NPRemoteWindow& aWindow)
      AssertPluginThread();
      AutoStackHelper guard(this);
@@ -872,15 +573,6 @@ index a4f6b6b51..4a5a82af5 100644
      NS_ASSERTION(mWsInfo.display, "We should have a valid display!");
  
      // The minimum info is sent over IPC to allow this
-@@ -1419,7 +1419,7 @@ PluginInstanceChild::AnswerNPP_SetWindow(const NPRemoteWindow& aWindow)
- 
-     if (mShContext) {
-         // Release the shared context so that it is reallocated
--        // with the new size. 
-+        // with the new size.
-         ::CGContextRelease(mShContext);
-         mShContext = nullptr;
-     }
 @@ -1430,7 +1430,7 @@ PluginInstanceChild::AnswerNPP_SetWindow(const NPRemoteWindow& aWindow)
  #elif defined(MOZ_WIDGET_UIKIT)
      // Don't care
@@ -899,152 +591,6 @@ index a4f6b6b51..4a5a82af5 100644
      NPError rv;
  
      if (mWsInfo.display) {
-@@ -1464,7 +1464,7 @@ PluginInstanceChild::Initialize()
-     else {
-         mWsInfo.display = xt_client_get_display();
-     }
--#endif 
-+#endif
- 
-     return true;
- }
-@@ -1597,7 +1597,7 @@ PluginInstanceChild::CreatePluginWindow()
-     // already initialized
-     if (mPluginWindowHWND)
-         return true;
--        
-+
-     if (!RegisterWindowClass())
-         return false;
- 
-@@ -1952,7 +1952,7 @@ PluginInstanceChild::MaybePostKeyMessage(UINT message,
-  * Note, ascii versions can be nixed once flash versions < 10.1
-  * are considered obsolete.
-  */
-- 
-+
- #ifdef _WIN64
- typedef LONG_PTR
-   (WINAPI *User32SetWindowLongPtrA)(HWND hWnd,
-@@ -2024,14 +2024,14 @@ PluginInstanceChild::SetWindowLongAHook(HWND hWnd,
-     if (SetWindowLongHookCheck(hWnd, nIndex, newLong))
-         return sUser32SetWindowLongAHookStub(hWnd, nIndex, newLong);
- 
--    // Set flash's new subclass to get the result. 
-+    // Set flash's new subclass to get the result.
-     LONG_PTR proc = sUser32SetWindowLongAHookStub(hWnd, nIndex, newLong);
- 
-     // We already checked this in SetWindowLongHookCheck
-     PluginInstanceChild* self = reinterpret_cast<PluginInstanceChild*>(
-         GetProp(hWnd, kPluginInstanceChildProperty));
- 
--    // Hook our subclass back up, just like we do on setwindow.   
-+    // Hook our subclass back up, just like we do on setwindow.
-     WNDPROC currentProc =
-         reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_WNDPROC));
-     if (currentProc != PluginWindowProc) {
-@@ -2058,14 +2058,14 @@ PluginInstanceChild::SetWindowLongWHook(HWND hWnd,
-     if (SetWindowLongHookCheck(hWnd, nIndex, newLong))
-         return sUser32SetWindowLongWHookStub(hWnd, nIndex, newLong);
- 
--    // Set flash's new subclass to get the result. 
-+    // Set flash's new subclass to get the result.
-     LONG_PTR proc = sUser32SetWindowLongWHookStub(hWnd, nIndex, newLong);
- 
-     // We already checked this in SetWindowLongHookCheck
-     PluginInstanceChild* self = reinterpret_cast<PluginInstanceChild*>(
-         GetProp(hWnd, kPluginInstanceChildProperty));
- 
--    // Hook our subclass back up, just like we do on setwindow.   
-+    // Hook our subclass back up, just like we do on setwindow.
-     WNDPROC currentProc =
-         reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_WNDPROC));
-     if (currentProc != PluginWindowProc) {
-@@ -2256,7 +2256,7 @@ PluginInstanceChild::TrackPopupHookProc(HMENU hMenu,
-   // displayed by plugins that have working parent-child relationships.
-   wchar_t szClass[21];
-   bool haveClass = GetClassNameW(hWnd, szClass, ArrayLength(szClass));
--  if (!haveClass || 
-+  if (!haveClass ||
-       (wcscmp(szClass, L"MozillaWindowClass") &&
-        wcscmp(szClass, L"SWFlash_Placeholder"))) {
-       // Unrecognized parent
-@@ -2481,7 +2481,7 @@ PluginInstanceChild::WinlessHandleEvent(NPEvent& event)
-     // Events that might generate nested event dispatch loops need
-     // special handling during delivery.
-     int16_t handled;
--    
-+
-     HWND focusHwnd = nullptr;
- 
-     // TrackPopupMenu will fail if the parent window is not associated with
-@@ -2491,9 +2491,9 @@ PluginInstanceChild::WinlessHandleEvent(NPEvent& event)
-           (event.event == WM_RBUTTONDOWN || // flash
-            event.event == WM_RBUTTONUP)) {  // silverlight
-       sWinlessPopupSurrogateHWND = mWinlessPopupSurrogateHWND;
--      
-+
-       // A little trick scrounged from chromium's code - set the focus
--      // to our surrogate parent so keyboard nav events go to the menu. 
-+      // to our surrogate parent so keyboard nav events go to the menu.
-       focusHwnd = SetFocus(mWinlessPopupSurrogateHWND);
-     }
- 
-@@ -2585,7 +2585,7 @@ PluginInstanceChild::WinlessHiddenFlashWndProc(HWND hWnd,
- }
- 
- // Enumerate all thread windows looking for flash's hidden message window.
--// Once we find it, sub class it so we can throttle user msgs.  
-+// Once we find it, sub class it so we can throttle user msgs.
- // static
- BOOL CALLBACK
- PluginInstanceChild::EnumThreadWindowsCallback(HWND hWnd,
-@@ -2600,7 +2600,7 @@ PluginInstanceChild::EnumThreadWindowsCallback(HWND hWnd,
-     wchar_t className[64];
-     if (!GetClassNameW(hWnd, className, sizeof(className)/sizeof(char16_t)))
-       return TRUE;
--    
-+
-     if (!wcscmp(className, L"SWFlash_PlaceholderX")) {
-         WNDPROC oldWndProc =
-             reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_WNDPROC));
-@@ -2645,14 +2645,14 @@ PluginInstanceChild::SetupFlashMsgThrottle()
- 
- WNDPROC
- PluginInstanceChild::FlashThrottleAsyncMsg::GetProc()
--{ 
-+{
-     if (mInstance) {
-         return mWindowed ? mInstance->mPluginWndProc :
-                            mInstance->mWinlessThrottleOldWndProc;
-     }
-     return nullptr;
- }
-- 
-+
- NS_IMETHODIMP
- PluginInstanceChild::FlashThrottleAsyncMsg::Run()
- {
-@@ -2663,8 +2663,8 @@ PluginInstanceChild::FlashThrottleAsyncMsg::Run()
-     // ptrs around in FlashThrottleAsyncMsg msgs.
-     if (!GetProc())
-         return NS_OK;
--  
--    // deliver the event to flash 
-+
-+    // deliver the event to flash
-     CallWindowProc(GetProc(), GetWnd(), GetMsg(), GetWParam(), GetLParam());
-     return NS_OK;
- }
-@@ -2723,7 +2723,7 @@ PluginInstanceChild::AnswerUpdateWindow()
-     if (mPluginWindowHWND) {
-         RECT rect;
-         if (GetUpdateRect(GetParent(mPluginWindowHWND), &rect, FALSE)) {
--            ::InvalidateRect(mPluginWindowHWND, &rect, FALSE); 
-+            ::InvalidateRect(mPluginWindowHWND, &rect, FALSE);
-         }
-         UpdateWindow(mPluginWindowHWND);
-     }
 @@ -3406,7 +3406,7 @@ PluginInstanceChild::CreateOptSurface(void)
          (mIsTransparent && !mBackground) ? SurfaceFormat::A8R8G8B8_UINT32 :
                                             SurfaceFormat::X8R8G8B8_UINT32;
@@ -1095,17 +641,6 @@ index a4f6b6b51..4a5a82af5 100644
      if (mIsTransparent && (GetQuirks() & QUIRK_FLASH_EXPOSE_COORD_TRANSLATION)) {
          // Work around a bug in Flash up to 10.1 d51 at least, where expose event
          // top left coordinates within the plugin-rect and not at the drawable
-@@ -4011,8 +4011,8 @@ PluginInstanceChild::ShowPluginFrame()
-         // Fix up old invalidations that might have been made when our
-         // surface was a different size
-         rect.IntersectRect(rect,
--                          nsIntRect(0, 0, 
--                          mDoubleBufferCARenderer.GetFrontSurfaceWidth(), 
-+                          nsIntRect(0, 0,
-+                          mDoubleBufferCARenderer.GetFrontSurfaceWidth(),
-                           mDoubleBufferCARenderer.GetFrontSurfaceHeight()));
- 
-         if (mDrawingModel == NPDrawingModelCoreGraphics) {
 @@ -4131,7 +4131,7 @@ PluginInstanceChild::ShowPluginFrame()
      NPRect r = { (uint16_t)rect.y, (uint16_t)rect.x,
                   (uint16_t)rect.YMost(), (uint16_t)rect.XMost() };
@@ -1142,37 +677,17 @@ index a4f6b6b51..4a5a82af5 100644
          case SurfaceDescriptor::TSurfaceDescriptorX11: {
              mBackground = aBackground.get_SurfaceDescriptorX11().OpenForeign();
              break;
-@@ -4451,13 +4451,13 @@ PluginInstanceChild::SwapSurfaces()
- 
-     // Outdated back surface... not usable anymore due to changed plugin size.
-     // Dropping obsolete surface
--    if (mDoubleBufferCARenderer.HasFrontSurface() && 
-+    if (mDoubleBufferCARenderer.HasFrontSurface() &&
-         mDoubleBufferCARenderer.HasBackSurface() &&
--        (mDoubleBufferCARenderer.GetFrontSurfaceWidth() != 
-+        (mDoubleBufferCARenderer.GetFrontSurfaceWidth() !=
-             mDoubleBufferCARenderer.GetBackSurfaceWidth() ||
--        mDoubleBufferCARenderer.GetFrontSurfaceHeight() != 
-+        mDoubleBufferCARenderer.GetFrontSurfaceHeight() !=
-             mDoubleBufferCARenderer.GetBackSurfaceHeight() ||
--        mDoubleBufferCARenderer.GetFrontSurfaceContentsScaleFactor() != 
-+        mDoubleBufferCARenderer.GetFrontSurfaceContentsScaleFactor() !=
-             mDoubleBufferCARenderer.GetBackSurfaceContentsScaleFactor())) {
- 
-         mDoubleBufferCARenderer.ClearFrontSurface();
-@@ -4649,8 +4649,8 @@ PluginInstanceChild::Destroy()
-         mPendingAsyncCalls[i]->Cancel();
+@@ -4650,7 +4650,7 @@ PluginInstanceChild::Destroy()
  
      mPendingAsyncCalls.Clear();
--    
+     
 -#ifdef MOZ_WIDGET_GTK
-+
 +#if 0
      if (mWindow.type == NPWindowTypeWindow && !mXEmbed) {
        xt_client_xloop_destroy();
      }
 diff --git a/platform/dom/plugins/ipc/PluginInstanceChild.h b/platform/dom/plugins/ipc/PluginInstanceChild.h
-index 0ad6e145d..dd96bd92d 100644
+index 0ad6e145d..ecec92960 100644
 --- a/platform/dom/plugins/ipc/PluginInstanceChild.h
 +++ b/platform/dom/plugins/ipc/PluginInstanceChild.h
 @@ -35,7 +35,7 @@
@@ -1184,24 +699,6 @@ index 0ad6e145d..dd96bd92d 100644
  #include "gtk2xtbin.h"
  #endif
  
-@@ -353,7 +353,7 @@ private:
-     static LONG_PTR WINAPI SetWindowLongPtrWHook(HWND hWnd,
-                                                  int nIndex,
-                                                  LONG_PTR newLong);
--                      
-+
- #else
-     static LONG WINAPI SetWindowLongAHook(HWND hWnd,
-                                           int nIndex,
-@@ -376,7 +376,7 @@ private:
-     {
-       public:
-         FlashThrottleAsyncMsg();
--        FlashThrottleAsyncMsg(PluginInstanceChild* aInst, 
-+        FlashThrottleAsyncMsg(PluginInstanceChild* aInst,
-                               HWND aWnd, UINT aMsg,
-                               WPARAM aWParam, LPARAM aLParam,
-                               bool isWindowed)
 @@ -456,7 +456,7 @@ private:
      PluginScriptableObjectChild* mCachedWindowActor;
      PluginScriptableObjectChild* mCachedElementActor;
@@ -1211,24 +708,6 @@ index 0ad6e145d..dd96bd92d 100644
      NPSetWindowCallbackStruct mWsInfo;
  #ifdef MOZ_WIDGET_GTK
      bool mXEmbed;
-@@ -506,7 +506,7 @@ public:
-     const NPCocoaEvent* getCurrentEvent() {
-         return mCurrentEvent;
-     }
--  
-+
-     bool CGDraw(CGContextRef ref, nsIntRect aUpdateRect);
- 
- #if defined(__i386__)
-@@ -612,7 +612,7 @@ private:
- #ifdef XP_MACOSX
-     // Current IOSurface available for rendering
-     // We can't use thebes gfxASurface like other platforms.
--    PluginUtilsOSX::nsDoubleBufferCARenderer mDoubleBufferCARenderer; 
-+    PluginUtilsOSX::nsDoubleBufferCARenderer mDoubleBufferCARenderer;
- #endif
- 
-     // (Not to be confused with mBackSurface).  This is a recent copy
 diff --git a/platform/dom/plugins/ipc/PluginInstanceParent.cpp b/platform/dom/plugins/ipc/PluginInstanceParent.cpp
 index 523dc5c80..93d1f8c9e 100644
 --- a/platform/dom/plugins/ipc/PluginInstanceParent.cpp
@@ -1391,18 +870,9 @@ index 5b1d1667f..3dcdcfd82 100644
  #else
    return munged;
 diff --git a/platform/dom/plugins/ipc/PluginMessageUtils.h b/platform/dom/plugins/ipc/PluginMessageUtils.h
-index a9cd52ae2..79443c285 100644
+index a9cd52ae2..484a92ec5 100644
 --- a/platform/dom/plugins/ipc/PluginMessageUtils.h
 +++ b/platform/dom/plugins/ipc/PluginMessageUtils.h
-@@ -71,7 +71,7 @@ struct IPCByteRange
- {
-   int32_t offset;
-   uint32_t length;
--};  
-+};
- 
- typedef nsTArray<IPCByteRange> IPCByteRanges;
- 
 @@ -87,7 +87,7 @@ struct NPRemoteWindow
    uint32_t height;
    NPRect clipRect;
@@ -1424,18 +894,6 @@ index a9cd52ae2..79443c285 100644
  typedef intptr_t NativeWindowHandle; // never actually used, will always be 0
  #else
  #error Need NativeWindowHandle for this platform
-@@ -151,9 +151,9 @@ NPPVariableToString(NPPVariable aVar)
-         VARSTR(NPPVpluginScriptableNPObject);
- 
-         VARSTR(NPPVformValue);
--  
-+
-         VARSTR(NPPVpluginUrlRequestsDisplayedBool);
--  
-+
-         VARSTR(NPPVpluginWantsAllNetworkStreams);
- 
- #ifdef XP_MACOSX
 @@ -357,7 +357,7 @@ struct ParamTraits<mozilla::plugins::NPRemoteWindow>
      WriteParam(aMsg, aParam.height);
      WriteParam(aMsg, aParam.clipRect);
@@ -1463,26 +921,8 @@ index a9cd52ae2..79443c285 100644
      aResult->visualID = visualID;
      aResult->colormap = colormap;
  #endif
-@@ -660,7 +660,7 @@ struct ParamTraits<NPNURLVariable>
-   }
- };
- 
--  
-+
- template<>
- struct ParamTraits<NPCoordinateSpace>
- {
-@@ -729,7 +729,7 @@ struct ParamTraits<mozilla::plugins::NPAudioDeviceChangeDetailsIPC>
- // Serializing NPEvents is completely platform-specific and can be rather
- // intricate depending on the platform.  So for readability we split it
- // into separate files and have the only macro crud live here.
--// 
-+//
- // NB: these guards are based on those where struct NPEvent is defined
- // in npapi.h.  They should be kept in sync.
- #if defined(XP_MACOSX)
 diff --git a/platform/dom/plugins/ipc/PluginModuleChild.cpp b/platform/dom/plugins/ipc/PluginModuleChild.cpp
-index 98c9cd494..e37632803 100644
+index 98c9cd494..2ba887e4f 100644
 --- a/platform/dom/plugins/ipc/PluginModuleChild.cpp
 +++ b/platform/dom/plugins/ipc/PluginModuleChild.cpp
 @@ -11,7 +11,7 @@
@@ -1566,15 +1006,6 @@ index 98c9cd494..e37632803 100644
      // We free some data off of XDisplay close hooks, ensure they're
      // run.  Closing the display is pretty scary, so we only do it to
      // silence leak checkers.
-@@ -925,7 +925,7 @@ static NPError
- _popupcontextmenu(NPP instance, NPMenu* menu);
- 
- static NPBool
--_convertpoint(NPP instance, 
-+_convertpoint(NPP instance,
-               double sourceX, double sourceY, NPCoordinateSpace sourceSpace,
-               double *destX, double *destY, NPCoordinateSpace destSpace);
- 
 @@ -1073,7 +1073,7 @@ _getvalue(NPP aNPP,
      switch (aVariable) {
          // Copied from nsNPAPIPlugin.cpp
@@ -1584,7 +1015,7 @@ index 98c9cd494..e37632803 100644
              *static_cast<NPNToolkitType*>(aValue) = NPNVGtk2;
              return NPERR_NO_ERROR;
  #endif
-@@ -1094,14 +1094,14 @@ _getvalue(NPP aNPP,
+@@ -1094,7 +1094,7 @@ _getvalue(NPP aNPP,
          case NPNVSupportsWindowless:
              *(NPBool*)aValue = PluginModuleChild::GetChrome()->Settings().supportsWindowless();
              return NPERR_NO_ERROR;
@@ -1593,44 +1024,6 @@ index 98c9cd494..e37632803 100644
          case NPNVxDisplay: {
              if (aNPP) {
                  return InstCast(aNPP)->NPN_GetValue(aVariable, aValue);
--            } 
-+            }
-             else {
-                 *(void **)aValue = xt_client_get_display();
--            }          
-+            }
-             return NPERR_NO_ERROR;
-         }
-         case NPNVxtAppContext:
-@@ -1703,7 +1703,7 @@ _popupcontextmenu(NPP instance, NPMenu* menu)
-     AssertPluginThread();
- 
- #ifdef MOZ_WIDGET_COCOA
--    double pluginX, pluginY; 
-+    double pluginX, pluginY;
-     double screenX, screenY;
- 
-     const NPCocoaEvent* currentEvent = InstCast(instance)->getCurrentEvent();
-@@ -1727,8 +1727,8 @@ _popupcontextmenu(NPP instance, NPMenu* menu)
-     if ((pluginX < 0.0) || (pluginY < 0.0))
-         return NPERR_GENERIC_ERROR;
- 
--    NPBool success = _convertpoint(instance, 
--                                  pluginX,  pluginY, NPCoordinateSpacePlugin, 
-+    NPBool success = _convertpoint(instance,
-+                                  pluginX,  pluginY, NPCoordinateSpacePlugin,
-                                  &screenX, &screenY, NPCoordinateSpaceScreen);
- 
-     if (success) {
-@@ -1748,7 +1748,7 @@ _popupcontextmenu(NPP instance, NPMenu* menu)
- }
- 
- NPBool
--_convertpoint(NPP instance, 
-+_convertpoint(NPP instance,
-               double sourceX, double sourceY, NPCoordinateSpace sourceSpace,
-               double *destX, double *destY, NPCoordinateSpace destSpace)
- {
 @@ -1858,7 +1858,7 @@ PluginModuleChild::DoNP_Initialize(const PluginSettings& aSettings)
      SetEventHooks();
  #endif
@@ -1640,28 +1033,10 @@ index 98c9cd494..e37632803 100644
      // Send the parent our X socket to act as a proxy reference for our X
      // resources.
      int xSocketFd = ConnectionNumber(DefaultXDisplay());
-@@ -2545,7 +2545,7 @@ PluginModuleChild::RecvProcessNativeEventsInInterruptCall()
- #ifdef MOZ_WIDGET_COCOA
- void
- PluginModuleChild::ProcessNativeEvents() {
--    CallProcessSomeEvents();    
-+    CallProcessSomeEvents();
- }
- #endif
- 
 diff --git a/platform/dom/plugins/ipc/PluginModuleChild.h b/platform/dom/plugins/ipc/PluginModuleChild.h
-index 5e4fa7d20..e5a893386 100644
+index 5e4fa7d20..7fa04a9fe 100644
 --- a/platform/dom/plugins/ipc/PluginModuleChild.h
 +++ b/platform/dom/plugins/ipc/PluginModuleChild.h
-@@ -186,7 +186,7 @@ public:
- 
- #ifdef MOZ_WIDGET_COCOA
-     void ProcessNativeEvents();
--    
-+
-     void PluginShowWindow(uint32_t window_id, bool modal, CGRect r) {
-         SendPluginShowWindow(window_id, modal, r.origin.x, r.origin.y, r.size.width, r.size.height);
-     }
 @@ -240,7 +240,7 @@ private:
      void HookProtectedMode();
  #endif
@@ -1681,7 +1056,7 @@ index 5e4fa7d20..e5a893386 100644
      // synchronous IPC message from the browser, the loop might break
      // only after the browser responds to a request sent by the
 diff --git a/platform/dom/plugins/ipc/PluginModuleParent.cpp b/platform/dom/plugins/ipc/PluginModuleParent.cpp
-index 6ea205ef0..768f00edf 100755
+index 6ea205ef0..479bf49a9 100755
 --- a/platform/dom/plugins/ipc/PluginModuleParent.cpp
 +++ b/platform/dom/plugins/ipc/PluginModuleParent.cpp
 @@ -46,7 +46,7 @@
@@ -1693,126 +1068,6 @@ index 6ea205ef0..768f00edf 100755
  #include <glib.h>
  #elif XP_MACOSX
  #include "PluginInterposeOSX.h"
-@@ -709,12 +709,12 @@ PluginModuleChromeParent::CleanupFromTimeout(const bool aFromHangUI)
-         return;
-     }
- 
--    /* If the plugin container was terminated by the Plugin Hang UI, 
--       then either the I/O thread detects a channel error, or the 
-+    /* If the plugin container was terminated by the Plugin Hang UI,
-+       then either the I/O thread detects a channel error, or the
-        main thread must set the error (whomever gets there first).
--       OTOH, if we terminate and return false from 
--       ShouldContinueFromReplyTimeout, then the channel state has 
--       already been set to ChannelTimeout and we should call the 
-+       OTOH, if we terminate and return false from
-+       ShouldContinueFromReplyTimeout, then the channel state has
-+       already been set to ChannelTimeout and we should call the
-        regular Close function. */
-     if (aFromHangUI) {
-         GetIPCChannel()->CloseWithError();
-@@ -727,7 +727,7 @@ PluginModuleChromeParent::CleanupFromTimeout(const bool aFromHangUI)
- namespace {
- 
- uint64_t
--FileTimeToUTC(const FILETIME& ftime) 
-+FileTimeToUTC(const FILETIME& ftime)
- {
-   ULARGE_INTEGER li;
-   li.LowPart = ftime.dwLowDateTime;
-@@ -741,7 +741,7 @@ struct CpuUsageSamples
-   uint64_t cpuTimes[2];
- };
- 
--bool 
-+bool
- GetProcessCpuUsage(const InfallibleTArray<base::ProcessHandle>& processHandles, InfallibleTArray<float>& cpuUsage)
- {
-   InfallibleTArray<CpuUsageSamples> samples(processHandles.Length());
-@@ -755,7 +755,7 @@ GetProcessCpuUsage(const InfallibleTArray<base::ProcessHandle>& processHandles,
-       NS_WARNING("failed to get process times");
-       return false;
-     }
--  
-+
-     CpuUsageSamples s;
-     s.sampleTimes[0] = FileTimeToUTC(currentTime);
-     s.cpuTimes[0]    = FileTimeToUTC(kernelTime) + FileTimeToUTC(userTime);
-@@ -776,7 +776,7 @@ GetProcessCpuUsage(const InfallibleTArray<base::ProcessHandle>& processHandles,
-     }
- 
-     samples[i].sampleTimes[1] = FileTimeToUTC(currentTime);
--    samples[i].cpuTimes[1]    = FileTimeToUTC(kernelTime) + FileTimeToUTC(userTime);    
-+    samples[i].cpuTimes[1]    = FileTimeToUTC(kernelTime) + FileTimeToUTC(userTime);
- 
-     const uint64_t deltaSampleTime = samples[i].sampleTimes[1] - samples[i].sampleTimes[0];
-     const uint64_t deltaCpuTime    = samples[i].cpuTimes[1]    - samples[i].cpuTimes[0];
-@@ -927,7 +927,7 @@ PluginModuleChromeParent::ShouldContinueFromReplyTimeout()
-     if (LaunchHangUI()) {
-         return true;
-     }
--    // If LaunchHangUI returned false then we should proceed with the 
-+    // If LaunchHangUI returned false then we should proceed with the
-     // original plugin hang behaviour and kill the plugin container.
-     FinishHangUI();
- #endif // XP_WIN
-@@ -1037,8 +1037,8 @@ PluginModuleChromeParent::EvaluateHangUIState(const bool aReset)
-     int32_t autoStopSecs = Preferences::GetInt(kChildTimeoutPref, 0);
-     int32_t timeoutSecs = 0;
-     if (autoStopSecs > 0 && autoStopSecs < minDispSecs) {
--        /* If we're going to automatically terminate the plugin within a 
--           time frame shorter than minDispSecs, there's no point in 
-+        /* If we're going to automatically terminate the plugin within a
-+           time frame shorter than minDispSecs, there's no point in
-            showing the hang UI; it would just flash briefly on the screen. */
-         mHangUIEnabled = false;
-     } else {
-@@ -1051,11 +1051,11 @@ PluginModuleChromeParent::EvaluateHangUIState(const bool aReset)
-             SetChildTimeout(timeoutSecs);
-             return;
-         } else if (mIsTimerReset) {
--            /* The Hang UI is being shown, so now we're setting the 
--               timeout to kChildTimeoutPref while we wait for a user 
--               response. ShouldContinueFromReplyTimeout will fire 
--               after (reply timeout / 2) seconds, which is not what 
--               we want. Doubling the timeout value here so that we get 
-+            /* The Hang UI is being shown, so now we're setting the
-+               timeout to kChildTimeoutPref while we wait for a user
-+               response. ShouldContinueFromReplyTimeout will fire
-+               after (reply timeout / 2) seconds, which is not what
-+               we want. Doubling the timeout value here so that we get
-                the right result. */
-             autoStopSecs *= 2;
-         }
-@@ -1086,15 +1086,15 @@ PluginModuleChromeParent::LaunchHangUI()
-         delete mHangUIParent;
-         mHangUIParent = nullptr;
-     }
--    mHangUIParent = new PluginHangUIParent(this, 
-+    mHangUIParent = new PluginHangUIParent(this,
-             Preferences::GetInt(kHangUITimeoutPref, 0),
-             Preferences::GetInt(kChildTimeoutPref, 0));
-     bool retval = mHangUIParent->Init(NS_ConvertUTF8toUTF16(mPluginName));
-     if (retval) {
-         mHangAnnotationFlags |= kHangUIShown;
--        /* Once the UI is shown we switch the timeout over to use 
--           kChildTimeoutPref, allowing us to terminate a hung plugin 
--           after kChildTimeoutPref seconds if the user doesn't respond to 
-+        /* Once the UI is shown we switch the timeout over to use
-+           kChildTimeoutPref, allowing us to terminate a hung plugin
-+           after kChildTimeoutPref seconds if the user doesn't respond to
-            the hang UI. */
-         EvaluateHangUIState(false);
-     }
-@@ -1115,7 +1115,7 @@ PluginModuleChromeParent::FinishHangUI()
-         if (needsCancel ||
-             (!mIsTimerReset && mHangUIParent->WasShown())) {
-             /* We changed the timeout to kChildTimeoutPref when the plugin hang
--               UI was displayed. Now that we're finishing the UI, we need to 
-+               UI was displayed. Now that we're finishing the UI, we need to
-                switch it back to kHangUITimeoutPref. */
-             EvaluateHangUIState(true);
-         }
 @@ -1432,7 +1432,7 @@ PluginModuleChromeParent::AnswerNPN_SetValue_NPPVpluginRequiresAudioDeviceChange
  bool
  PluginModuleParent::RecvBackUpXResources(const FileDescriptor& aXSocketFd)
@@ -1855,24 +1110,6 @@ index 6ea205ef0..768f00edf 100755
  
  bool
  PluginModuleParent::RecvNP_InitializeResult(const NPError& aError)
-@@ -1830,7 +1847,7 @@ PluginModuleParent::NP_Initialize(NPNetscapeFuncs* bFuncs, NPError* error)
-     return NS_OK;
- }
- 
--#if defined(XP_WIN) || defined(XP_MACOSX)
-+#  if defined(XP_WIN) || defined(XP_MACOSX)
- 
- nsresult
- PluginModuleContentParent::NP_Initialize(NPNetscapeFuncs* bFuncs, NPError* error)
-@@ -1844,7 +1861,7 @@ PluginModuleContentParent::NP_Initialize(NPNetscapeFuncs* bFuncs, NPError* error
-     return rv;
- }
- 
--#endif
-+#  endif
- 
- nsresult
- PluginModuleChromeParent::NP_Initialize(NPNetscapeFuncs* bFuncs, NPError* error)
 @@ -2356,7 +2373,7 @@ PluginModuleParent::AnswerProcessSomeEvents()
      return true;
  }
@@ -1883,18 +1120,9 @@ index 6ea205ef0..768f00edf 100755
  PluginModuleParent::AnswerProcessSomeEvents()
  {
 diff --git a/platform/dom/plugins/ipc/PluginModuleParent.h b/platform/dom/plugins/ipc/PluginModuleParent.h
-index 909e8fe35..d87a7b479 100644
+index 909e8fe35..267fcfc11 100644
 --- a/platform/dom/plugins/ipc/PluginModuleParent.h
 +++ b/platform/dom/plugins/ipc/PluginModuleParent.h
-@@ -198,7 +198,7 @@ protected:
-                              InfallibleTArray<nsCString>& values,
-                              NPSavedData* saved, NPError* error);
- 
--    // NPP-like API that Gecko calls are trampolined into.  These 
-+    // NPP-like API that Gecko calls are trampolined into.  These
-     // messages then get forwarded along to the plugin instance,
-     // and then eventually the child process.
- 
 @@ -318,7 +318,7 @@ protected:
      int32_t mSandboxLevel;
      bool mIsFlashPlugin;
@@ -2024,7 +1252,7 @@ index 9ed4f8966..da553990d 100644
      # This is intended as a temporary hack to support building with VS2015.
      # conversion from 'X' to 'Y' requires a narrowing conversion
 diff --git a/platform/gfx/thebes/gfxGdkNativeRenderer.cpp b/platform/gfx/thebes/gfxGdkNativeRenderer.cpp
-index f8964ad8f..641251eb1 100644
+index f8964ad8f..ff58e43b6 100644
 --- a/platform/gfx/thebes/gfxGdkNativeRenderer.cpp
 +++ b/platform/gfx/thebes/gfxGdkNativeRenderer.cpp
 @@ -7,7 +7,7 @@
@@ -2036,17 +1264,8 @@ index f8964ad8f..641251eb1 100644
  #include <gdk/gdkx.h>
  #include "cairo-xlib.h"
  #include "gfxXlibSurface.h"
-@@ -34,7 +34,7 @@ gfxGdkNativeRenderer::DrawWithXlib(cairo_surface_t* surface,
-         gfxPlatformGtk::SetGdkDrawable(surface, drawable);
-         g_object_unref(drawable); // The drawable now belongs to |surface|.
-     }
--    
-+
-     GdkRectangle clipRect;
-     if (numClipRects) {
-         NS_ASSERTION(numClipRects == 1, "Too many clip rects");
 diff --git a/platform/gfx/thebes/gfxGdkNativeRenderer.h b/platform/gfx/thebes/gfxGdkNativeRenderer.h
-index d95b1fef0..0dbbcf014 100644
+index d95b1fef0..ea88e9645 100644
 --- a/platform/gfx/thebes/gfxGdkNativeRenderer.h
 +++ b/platform/gfx/thebes/gfxGdkNativeRenderer.h
 @@ -6,9 +6,9 @@
@@ -2070,17 +1289,15 @@ index d95b1fef0..0dbbcf014 100644
      : private gfxXlibNativeRenderer
  #endif
  {
-@@ -35,8 +35,8 @@ public:
+@@ -35,7 +35,7 @@ public:
       * no clipping is required
       */
  
 -#if (MOZ_WIDGET_GTK == 2)
--    virtual nsresult DrawWithGDK(GdkDrawable * drawable, gint offsetX, 
 +#if 0
-+    virtual nsresult DrawWithGDK(GdkDrawable * drawable, gint offsetX,
+     virtual nsresult DrawWithGDK(GdkDrawable * drawable, gint offsetX, 
              gint offsetY, GdkRectangle * clipRects, uint32_t numClipRects) = 0;
  #endif
- 
 @@ -46,7 +46,7 @@ public:
          // will be set and there is no dependence on what the existing pixels
          // in the drawable are set to.
@@ -2147,7 +1364,7 @@ index 3c4320a18..3195e5d02 100644
  	-lgio-2.0 \
  	-lpangoft2-1.0 \
 diff --git a/platform/old-configure.in b/platform/old-configure.in
-index d34f72204..f0ed2cda0 100644
+index ade675e95..d2bc699fd 100644
 --- a/platform/old-configure.in
 +++ b/platform/old-configure.in
 @@ -59,7 +59,6 @@ GLIB_VERSION=2.22
