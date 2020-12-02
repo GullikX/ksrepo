@@ -1,8 +1,16 @@
 #!/bin/sh -e
 
-for patch in *.patch; do
-    patch -p1 < "$patch"
-done
+# Use relative date format '3s', '3d', etc instead of '3 seconds ago', '3 days ago', etc.
+sed -i 's|Q_("%"PRItime" second ago", "%"PRItime" seconds ago", diff)|"%"PRItime"s"|g' date.c
+sed -i 's|Q_("%"PRItime" minute ago", "%"PRItime" minutes ago", diff)|"%"PRItime"m"|g' date.c
+sed -i 's|Q_("%"PRItime" hour ago", "%"PRItime" hours ago", diff)|"%"PRItime"h"|g' date.c
+sed -i 's|Q_("%"PRItime" day ago", "%"PRItime" days ago", diff)|"%"PRItime"d"|g' date.c
+sed -i 's|Q_("%"PRItime" week ago", "%"PRItime" weeks ago", (diff + 3) / 7)|"%"PRItime"w"|g' date.c
+sed -i 's|Q_("%"PRItime" month ago", "%"PRItime" months ago", (diff + 15) / 30)|"%"PRItime"M"|g' date.c
+sed -i 's|Q_("%"PRItime" year", "%"PRItime" years", years)|"%"PRItime"y"|g' date.c
+sed -i 's|Q_("%s, %"PRItime" month ago", "%s, %"PRItime" months ago", months)|"%s, %"PRItime"M"|g' date.c
+sed -i 's|Q_("%"PRItime" year ago", "%"PRItime" years ago", years)|"%"PRItime"y"|g' date.c
+sed -i 's|Q_("%"PRItime" year ago", "%"PRItime" years ago", (diff + 183) / 365)|"%"PRItime"y"|g' date.c
 
 export CFLAGS="$CFLAGS -static"
 
