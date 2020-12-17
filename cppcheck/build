@@ -1,3 +1,6 @@
 #!/bin/sh -e
 
+# musl fix
+sed -i "/#include <cstring>/a #include <limits.h>" cli/filelister.cpp
+
 make DESTDIR="$1" MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck install
