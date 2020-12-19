@@ -26,7 +26,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * gwm: Task-based, tiling window manager
 
 ## Commit signing key
-`gpg --keyserver keys.gnupg.net --recv-key 0DB08667915AFF9F`
+`gpg2 --keyserver keys.gnupg.net --recv-key 0DB08667915AFF9F`
 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
