@@ -1,6 +1,6 @@
 [submodule ".community"]
 	path = .community
-	url = git://git.k1ss.org/community
+	url = https://github.com/kiss-community/repo-community
 [submodule ".repo"]
 	path = .repo
-	url = git://git.k1ss.org/repo
+	url = https://github.com/kiss-community/repo-main
