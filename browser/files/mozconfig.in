@@ -1,3 +1,5 @@
+# Based on https://developer.palemoon.org/build/linux
+
 # Set object directory (%SRCDIR% will substituted in build script)
 mk_add_options MOZ_OBJDIR="%SRCDIR%/objdir"
 
