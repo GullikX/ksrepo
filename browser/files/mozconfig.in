@@ -1,5 +1,5 @@
 # Set object directory (%SRCDIR% will substituted in build script)
-mk_add_options MOZ_OBJDIR=%SRCDIR%/objdir
+mk_add_options MOZ_OBJDIR="%SRCDIR%/objdir"
 
 # Clear this if not a 64bit build
 _BUILD_64=1
