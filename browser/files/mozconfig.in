@@ -9,7 +9,7 @@ _GTK_VERSION=3
 
 # Build options
 ac_add_options --enable-application=palemoon
-ac_add_options --enable-optimize="-O2 -march=native -pipe"
+ac_add_options --enable-optimize="%CFLAGS%"
 ac_add_options --enable-default-toolkit=cairo-gtk$_GTK_VERSION
 ac_add_options --enable-strip
 ac_add_options --enable-devtools

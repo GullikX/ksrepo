@@ -24,7 +24,7 @@
 )
 export PATH="$PWD/junk/bin:$PATH"
 
-sed 's#%SRCDIR%#'"$(realpath .)"'#g' mozconfig.in > .mozconfig
+sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
 
 for patch in *.patch; do
     patch -p1 < "$patch"
