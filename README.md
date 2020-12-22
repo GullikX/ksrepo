@@ -13,7 +13,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * browser: Unofficial port of Pale Moon
 * cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
-* glew: The OpenGL Extension Wrangler Library
 * glfw: Multi-platform library for creating windows with OpenGL contexts
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * sct: Lightweight utility to set the color temperature of the screen
