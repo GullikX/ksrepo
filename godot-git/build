@@ -12,7 +12,10 @@
 )
 
 export PATH="$PWD/junk/usr/bin:$PATH"
-export PYTHONPATH="$PWD/junk/usr/lib/python3.9/site-packages:$PYTHONPATH"  # TODO: Do not hard-code python version.
+
+pythonVersionMajor="$(python -c 'import sys; print(sys.version_info.major)')"
+pythonVersionMinor="$(python -c 'import sys; print(sys.version_info.minor)')"
+export PYTHONPATH="$PWD/junk/usr/lib/python$pythonVersionMajor.$pythonVersionMinor/site-packages:$PYTHONPATH"
 
 for patch in *.patch; do
     patch -p1 < "$patch"
