@@ -32,3 +32,4 @@ scons platform=linuxbsd \
     bits=64
 
 install -Dm755 bin/godot.linuxbsd.opt.tools.64 "$1/usr/bin/godot"
+install -Dm644 misc/dist/linux/godot.6 "$1/usr/share/man/man6/godot.6"
