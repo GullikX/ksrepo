@@ -1,0 +1,3 @@
+git+https://github.com/godotengine/godot
+https://github.com/SCons/scons/archive/4.0.1/scons-4.0.1.tar.gz scons
+patches/fix-musl.patch

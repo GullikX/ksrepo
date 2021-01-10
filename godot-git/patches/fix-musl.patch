@@ -1,0 +1,52 @@
+diff --git a/platform/linuxbsd/crash_handler_linuxbsd.cpp b/platform/linuxbsd/crash_handler_linuxbsd.cpp
+index 90e34f8e77..bc13a5d3dc 100644
+--- a/platform/linuxbsd/crash_handler_linuxbsd.cpp
++++ b/platform/linuxbsd/crash_handler_linuxbsd.cpp
+@@ -38,7 +38,7 @@
+ #define CRASH_HANDLER_ENABLED 1
+ #endif
+ 
+-#ifdef CRASH_HANDLER_ENABLED
++#if defined(CRASH_HANDLER_ENABLED) && defined(__GLIBC__)
+ #include <cxxabi.h>
+ #include <dlfcn.h>
+ #include <execinfo.h>
+@@ -134,7 +134,7 @@ void CrashHandler::disable() {
+ 		return;
+ 	}
+ 
+-#ifdef CRASH_HANDLER_ENABLED
++#if defined(CRASH_HANDLER_ENABLED) && defined(__GLIBC__)
+ 	signal(SIGSEGV, nullptr);
+ 	signal(SIGFPE, nullptr);
+ 	signal(SIGILL, nullptr);
+@@ -144,7 +144,7 @@ void CrashHandler::disable() {
+ }
+ 
+ void CrashHandler::initialize() {
+-#ifdef CRASH_HANDLER_ENABLED
++#if defined(CRASH_HANDLER_ENABLED) && defined(__GLIBC__)
+ 	signal(SIGSEGV, handle_crash);
+ 	signal(SIGFPE, handle_crash);
+ 	signal(SIGILL, handle_crash);
+diff --git a/platform/linuxbsd/os_linuxbsd.cpp b/platform/linuxbsd/os_linuxbsd.cpp
+index 68290bb4ec..ae3edf34f1 100644
+--- a/platform/linuxbsd/os_linuxbsd.cpp
++++ b/platform/linuxbsd/os_linuxbsd.cpp
+@@ -47,6 +47,7 @@
+ 
+ #include <dlfcn.h>
+ #include <fcntl.h>
++#include <libgen.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+@@ -382,7 +383,7 @@ Error OS_LinuxBSD::move_to_trash(const String &p_path) {
+ 	// The trash can is successfully created, now we check that we don't exceed our file name length limit.
+ 	// If the file name is too long trim it so we can add the identifying number and ".trashinfo".
+ 	// Assumes that the file name length limit is 255 characters.
+-	String file_name = basename(p_path.utf8().get_data());
++	String file_name = basename((char*)p_path.utf8().get_data());
+ 	if (file_name.length() > 240) {
+ 		file_name = file_name.substr(0, file_name.length() - 15);
+ 	}

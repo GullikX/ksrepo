@@ -1,0 +1,31 @@
+#!/bin/sh -e
+
+# Build scons for godots's sole use.
+(
+    cd scons
+    python setup.py build
+    python setup.py install \
+        --skip-build \
+        --prefix=/usr \
+        --root="$PWD/../junk" \
+        --optimize=1
+)
+
+export PATH="$PWD/junk/usr/bin:$PATH"
+export PYTHONPATH="$PWD/junk/usr/lib/python3.9/site-packages:$PYTHONPATH"  # TODO: Do not hard-code python version.
+
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
+scons platform=linuxbsd \
+    tools=yes \
+    target=release_debug \
+    use_llvm=no \
+    colored=yes \
+    pulseaudio=no \
+    builtin_vulkan=yes \
+    builtin_freetype=no \
+    bits=64
+
+install -Dm755 bin/godot.linuxbsd.opt.tools.64 "$1/usr/bin/godot"
