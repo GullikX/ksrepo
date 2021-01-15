@@ -10,7 +10,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * xf86-video-intel: Disable assertions
 
 ## Staging area
-* browser: Unofficial port of Pale Moon
+* browser: Unofficial port of Pale Moon, a Goanna-based web browser
 * cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
 * glfw: Multi-platform library for creating windows with OpenGL contexts
