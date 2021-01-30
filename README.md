@@ -42,3 +42,7 @@ h1JyCUAG
 =brcZ
 -----END PGP PUBLIC KEY BLOCK-----
 ```
+
+## More awesome KISS stuff
+
+https://github.com/kiss-community/awesome-kiss
