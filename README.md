@@ -15,6 +15,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
 * glfw: Multi-platform library for creating windows with OpenGL contexts
 * godot-git: An advanced, feature packed, multi-platform 2D and 3D game engine
+* helm: Polyphonic synth with lots of modulation
 * lm-sensors: Utilities to read temperature/voltage/fan sensors
 * ttf-droid-sans: General-purpose fonts released by Google as part of Android
 * ttf-fantasque-sans-mono: A font family with a great monospaced variant for programmers

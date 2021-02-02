@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+for patch in *.patch; do
+    patch -p0 < "$patch"
+done
+
+# Disable JACK
+sed -i 's/JUCE_JACK 1/JUCE_JACK 0/g' standalone/JuceLibraryCode/AppConfig.h
+
+make PREFIX="/usr"
+make DESTDIR="$1" install
