@@ -44,7 +44,7 @@ h1JyCUAG
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-### Links
+## Links
 
 * Project page: https://sr.ht/~gullik/ksrepo
 * Source code repo: https://git.sr.ht/~gullik/ksrepo
