@@ -1,0 +1,14 @@
+# Build manifest for sourcehut (https://builds.sr.ht/~gullik/ksrepo)
+image: alpine/latest
+
+packages:
+  - shellcheck
+
+sources:
+  - https://git.sr.ht/~gullik/ksrepo
+
+tasks:
+  - shellcheck: |
+      cd ksrepo
+      shopt -s nullglob
+      shellcheck */build */post-install
