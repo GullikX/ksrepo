@@ -44,6 +44,17 @@ h1JyCUAG
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
+### Links
+
+* Project page: https://sr.ht/~gullik/ksrepo
+* Source code repo: https://git.sr.ht/~gullik/ksrepo
+* Repo mirrors:
+    * https://bitbucket.org/Gullik/ksrepo
+    * https://github.com/GullikX/ksrepo
+* Mailing list (discuss, report issues, submit patches, etc): https://lists.sr.ht/~gullik/ksrepo
+* Ticket tracker: https://todo.sr.ht/~gullik/ksrepo
+* Build service: https://builds.sr.ht/~gullik/ksrepo
+
 ## More awesome KISS stuff
 
 https://github.com/kiss-community/awesome-kiss
