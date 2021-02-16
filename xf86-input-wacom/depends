@@ -1,8 +1,9 @@
 libX11
-libXau
 libXext
 libXi
 libXinerama
 libXrandr
-libXrender
-libxcb
+linux-headers make
+pkgconf       make
+xorg-server
+xorgproto     make
