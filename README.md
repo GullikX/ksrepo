@@ -19,7 +19,6 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * ttf-droid-sans: General-purpose fonts released by Google as part of Android
 * ttf-fantasque-sans-mono: A font family with a great monospaced variant for programmers
 * valgrind: Tool for finding memory management bugs in programs
-* xf86-input-wacom: Xorg Wacom tablet input driver
 
 ## My own homemade applications
 * gwm: Task-based, tiling window manager
