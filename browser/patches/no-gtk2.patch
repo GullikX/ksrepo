@@ -73,7 +73,7 @@ index e554aaabc..949679773 100644
 +#if 0
  #include <X11/Xlib.h>
  #include <X11/Xutil.h>
- #include "X11UndefineNone.h"
+ #endif
 @@ -220,7 +220,7 @@ typedef struct _NPAsyncSurface
  /* Exact meaning must be spec'd in event model. */
  #define kNPEventStartIME 2
