@@ -13,6 +13,7 @@ Custom package repository for kisslinux ([k1ss.org](https://k1ss.org))
 * browser: Unofficial port of Pale Moon, a Goanna-based web browser
 * cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
+* glew: The OpenGL Extension Wrangler Library
 * glfw: Multi-platform library for creating windows with OpenGL contexts
 * godot-git: An advanced, feature packed, multi-platform 2D and 3D game engine
 * helm: Polyphonic synth with lots of modulation
