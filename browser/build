@@ -33,7 +33,7 @@ done
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
 
 ./mach build
-./mach package
+./mach stage
 
 mkdir -p "$1/usr/bin"
 mkdir -p "$1/usr/lib"
