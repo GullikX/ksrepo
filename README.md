@@ -6,7 +6,6 @@ Custom package repository for kisslinux ([k1sslinux.org](https://k1sslinux.org))
 ## Modified packages
 * git: Use short format relative dates in log
 * fzf: Install keybindings for bash and zsh
-* lvm2: Disable udev
 * xf86-video-intel: Disable assertions
 
 ## Staging area
