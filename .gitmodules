@@ -4,3 +4,6 @@
 [submodule ".xorg"]
 	path = .xorg
 	url = https://github.com/ehawkvu/kiss-xorg
+[submodule ".repo"]
+	path = .repo
+	url = https://github.com/kisslinux/repo
