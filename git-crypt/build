@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+kiss list libxslt && enable_man=yes
+
+make ENABLE_MAN=${enable_man:-no}
+make \
+    DESTDIR="$1" \
+    PREFIX=/usr \
+    ENABLE_MAN=${enable_man:-no} \
+    install

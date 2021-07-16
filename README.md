@@ -13,6 +13,7 @@ Custom package repository for kisslinux ([kisslinux.xyz](https://kisslinux.xyz))
 * browser: Unofficial port of Pale Moon, a Goanna-based web browser
 * cppcheck: Static analysis tool for C/C++ code
 * fluidsynth: Real-time software synthesizer based on the SoundFont 2 specifications
+* git-crypt: Transparent file encryption in git
 * glew: The OpenGL Extension Wrangler Library
 * glfw: Multi-platform library for creating windows with OpenGL contexts
 * godot-git: An advanced, feature packed, multi-platform 2D and 3D game engine
