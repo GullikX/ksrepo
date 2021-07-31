@@ -1,5 +1,5 @@
 # ksrepo
-Custom package repository for kisslinux ([kisslinux.xyz](https://kisslinux.xyz))
+Custom package repository for kisslinux ([kisslinux.org](https://kisslinux.org))
 
 `git clone --recursive <url>`
 
