@@ -23,8 +23,8 @@ index e232f3443..2d1de20b3 100644
      'imptests',
  ]
  
--if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'cocoa', 'windows', 'android'):
-+if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'cocoa', 'windows', 'android'):
+-if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'windows', 'android'):
++if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'windows', 'android'):
      TEST_DIRS += ['plugins/test']
  
 diff --git a/platform/dom/plugins/base/moz.build b/platform/dom/plugins/base/moz.build
@@ -114,7 +114,7 @@ index e554aaabc..949679773 100644
    uint32_t width;  /* Maximum window size */
    uint32_t height;
    NPRect   clipRect; /* Clipping rectangle in port coordinates */
--#if (defined(XP_UNIX) || defined(XP_SYMBIAN)) && !defined(XP_MACOSX)
+-#if defined(XP_UNIX) || defined(XP_SYMBIAN)
 +#if 0
    void * ws_info; /* Platform-dependent additional data */
  #endif /* XP_UNIX */
@@ -129,8 +129,8 @@ index e554aaabc..949679773 100644
  #else
  typedef void*  NPEvent;
 @@ -583,7 +583,7 @@ typedef RgnHandle NPQDRegion;
- typedef CGPathRef NPCGRegion;
- #elif defined(XP_WIN)
+
+ #if defined(XP_WIN)
  typedef HRGN NPRegion;
 -#elif defined(XP_UNIX) && defined(MOZ_X11)
 +#elif 0
@@ -172,7 +172,7 @@ index da4f09914..90c9f2a83 100644
    // cases for android_npapi.h's non-standard ANPInterface values.
    switch (static_cast<int>(variable)) {
  
--#if defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(XP_UNIX)
 +#if 0
    case NPNVxDisplay : {
 -#if defined(MOZ_X11)
@@ -207,13 +207,12 @@ index da4f09914..90c9f2a83 100644
      *(NPBool*)result = true;
  #else
      *(NPBool*)result = false;
-@@ -1854,8 +1854,7 @@ _getvalue(NPP npp, NPNVariable variable, void *result)
+@@ -1854,7 +1854,7 @@ _getvalue(NPP npp, NPNVariable variable, void *result)
    }
  
    case NPNVSupportsWindowless: {
--#if defined(XP_WIN) || defined(XP_MACOSX) || \
--    (defined(MOZ_X11) && defined(MOZ_WIDGET_GTK))
-+#if defined(XP_WIN) || defined(XP_MACOSX)
+-#if defined(XP_WIN) || (defined(MOZ_X11) && defined(MOZ_WIDGET_GTK))
++#if defined(XP_WIN)
      *(NPBool*)result = true;
  #else
      *(NPBool*)result = false;
@@ -241,8 +240,8 @@ index 48e62517d..eda61db4e 100644
 -#elif defined(MOZ_X11)
 +#elif 0
  const NPDrawingModel kDefaultDrawingModel = NPDrawingModelSyncX;
- #elif defined(XP_MACOSX)
- #ifndef NP_NO_QUICKDRAW
+ #else
+ const NPDrawingModel kDefaultDrawingModel = static_cast<NPDrawingModel>(0);
 diff --git a/platform/dom/plugins/base/nsPluginInstanceOwner.cpp b/platform/dom/plugins/base/nsPluginInstanceOwner.cpp
 index 0d4dc68cc..df23790e0 100644
 --- a/platform/dom/plugins/base/nsPluginInstanceOwner.cpp
@@ -257,8 +256,8 @@ index 0d4dc68cc..df23790e0 100644
  #include "gfxXlibSurface.h"
  /* X headers suck */
 @@ -83,7 +83,7 @@ static NS_DEFINE_CID(kAppShellCID, NS_APPSHELL_CID);
- #include "nsIDOMXULCommandDispatcher.h"
- #endif
+ #include "mozilla/widget/WinMessages.h"
+ #endif // #ifdef XP_WIN
  
 -#ifdef MOZ_WIDGET_GTK
 +#if 0
@@ -369,9 +368,9 @@ index 2fa67c86e..5246da985 100644
  #endif
  
 @@ -108,7 +108,7 @@ public:
-   void Paint(const gfxRect& aDirtyRect, CGContextRef cgContext);  
-   void RenderCoreAnimation(CGContextRef aCGContext, int aWidth, int aHeight);
-   void DoCocoaEventDrawRect(const gfxRect& aDrawRect, CGContextRef cgContext);
+
+ #ifdef XP_WIN
+   void Paint(const RECT& aDirty, HDC aDC);
 -#elif defined(MOZ_X11)
 +#elif 0
    void Paint(gfxContext* aContext,
@@ -390,8 +389,8 @@ index 2fa67c86e..5246da985 100644
      return mPluginWindow->type == NPWindowTypeDrawable &&
      (MatchPluginName("Shockwave Flash") ||
       MatchPluginName("Test Plug-in"));
--#elif defined(MOZ_X11) || defined(XP_MACOSX)
-+#elif defined(XP_MACOSX)
+-#elif defined(MOZ_X11)
++#elif 0
      return true;
  #else
      return false;
@@ -421,7 +420,7 @@ index f9baf5b81..175f42ca4 100644
    width = 0; 
    height = 0; 
    memset(&clipRect, 0, sizeof(clipRect));
--#if defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(XP_UNIX)
 +#if 0
    ws_info = nullptr;
  #endif
@@ -492,7 +491,7 @@ index a4f6b6b51..8b2dc7de1 100644
      mWindow.type = NPWindowTypeWindow;
      mData.ndata = (void*) this;
      mData.pdata = nullptr;
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      mWindow.ws_info = &mWsInfo;
      memset(&mWsInfo, 0, sizeof(mWsInfo));
@@ -538,8 +537,8 @@ index a4f6b6b51..8b2dc7de1 100644
          PLUGIN_LOG_DEBUG(("  received drawable 0x%lx\n",
                            event.event.xgraphicsexpose.drawable));
 @@ -959,7 +959,7 @@ PluginInstanceChild::AnswerNPP_HandleEvent(const NPRemoteEvent& event,
-     }
- #endif
+     else
+         *handled = mPluginIface->event(&mData, reinterpret_cast<void*>(&evcopy));
  
 -#ifdef MOZ_X11
 +#if 0
@@ -568,7 +567,7 @@ index a4f6b6b51..8b2dc7de1 100644
      AssertPluginThread();
      AutoStackHelper guard(this);
  
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      NS_ASSERTION(mWsInfo.display, "We should have a valid display!");
  
@@ -703,7 +702,7 @@ index 0ad6e145d..ecec92960 100644
      PluginScriptableObjectChild* mCachedWindowActor;
      PluginScriptableObjectChild* mCachedElementActor;
  
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      NPSetWindowCallbackStruct mWsInfo;
  #ifdef MOZ_WIDGET_GTK
@@ -729,7 +728,7 @@ index 523dc5c80..93d1f8c9e 100644
 +#elif 0
  #include "mozilla/dom/ContentChild.h"
  #include <gdk/gdk.h>
- #elif defined(XP_MACOSX)
+ #endif
 @@ -196,7 +196,7 @@ PluginInstanceParent::ActorDestroy(ActorDestroyReason why)
          if (mImageContainer) {
              mImageContainer->ClearAllImages();
@@ -745,9 +744,9 @@ index 523dc5c80..93d1f8c9e 100644
  #elif defined(MOZ_X11)
 -    XID id;
 +    int id;
- #elif defined(XP_DARWIN)
-     intptr_t id;
  #else
+ #warning Implement me
+ #endif
 @@ -472,7 +472,7 @@ PluginInstanceParent::AnswerNPN_SetValue_NPPVpluginDrawingModel(
          case NPDrawingModelAsyncWindowsDXGISurface:
              allowed = AllowDirectDXGISurfaceDrawing();
@@ -758,9 +757,9 @@ index 523dc5c80..93d1f8c9e 100644
              allowed = true;
              break;
 @@ -906,7 +906,7 @@ PluginInstanceParent::RecvShow(const NPRect& updatedRect,
-         return true;
+         }
+         surface = gfxSharedImageSurface::Open(newSurface.get_Shmem());
      }
- #endif
 -#ifdef MOZ_X11
 +#if 0
      else if (newSurface.type() == SurfaceDescriptor::TSurfaceDescriptorX11) {
@@ -803,10 +802,10 @@ index 523dc5c80..93d1f8c9e 100644
      return SurfaceDescriptorX11(xsurf);
  #endif
 @@ -1395,7 +1395,7 @@ PluginInstanceParent::NPP_SetWindow(const NPWindow* aWindow)
-     }
+     window.contentsScaleFactor = floatScaleFactor;
  #endif
  
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      const NPSetWindowCallbackStruct* ws_info =
        static_cast<NPSetWindowCallbackStruct*>(aWindow->ws_info);
@@ -837,7 +836,7 @@ index 5b1d1667f..3dcdcfd82 100644
  
  NPRemoteWindow::NPRemoteWindow() :
    window(0), x(0), y(0), width(0), height(0), type(NPWindowTypeDrawable)
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
    , visualID(0)
    , colormap(0)
@@ -877,28 +876,28 @@ index a9cd52ae2..484a92ec5 100644
    uint32_t height;
    NPRect clipRect;
    NPWindowType type;
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
    VisualID visualID;
    Colormap colormap;
  #endif /* XP_UNIX */
-@@ -109,9 +109,9 @@ struct NPAudioDeviceChangeDetailsIPC
+@@ -109,8 +109,10 @@ struct NPAudioDeviceChangeDetailsIPC
  
  #ifdef XP_WIN
  typedef HWND NativeWindowHandle;
 -#elif defined(MOZ_X11)
 +#elif 0
  typedef XID NativeWindowHandle;
--#elif defined(XP_DARWIN)
-+#elif defined(XP_DARWIN) || defined(MOZ_X11)
- typedef intptr_t NativeWindowHandle; // never actually used, will always be 0
++#elif defined(MOZ_X11)
++typedef intptr_t NativeWindowHandle; // never actually used, will always be 0
  #else
  #error Need NativeWindowHandle for this platform
+ #endif
 @@ -357,7 +357,7 @@ struct ParamTraits<mozilla::plugins::NPRemoteWindow>
      WriteParam(aMsg, aParam.height);
      WriteParam(aMsg, aParam.clipRect);
      WriteParam(aMsg, aParam.type);
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      aMsg->WriteULong(aParam.visualID);
      aMsg->WriteULong(aParam.colormap);
@@ -907,7 +906,7 @@ index a9cd52ae2..484a92ec5 100644
            ReadParam(aMsg, aIter, &type)))
        return false;
  
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      unsigned long visualID;
      unsigned long colormap;
@@ -916,7 +915,7 @@ index a9cd52ae2..484a92ec5 100644
      aResult->height = height;
      aResult->clipRect = clipRect;
      aResult->type = type;
--#if defined(MOZ_X11) && defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(MOZ_X11) && defined(XP_UNIX)
 +#if 0
      aResult->visualID = visualID;
      aResult->colormap = colormap;
@@ -962,10 +961,10 @@ index 98c9cd494..2ba887e4f 100644
      if (StringBeginsWith(nsDependentCString(info.fDescription), flash10Head)) {
          AddQuirk(QUIRK_FLASH_EXPOSE_COORD_TRANSLATION);
 @@ -268,7 +268,7 @@ PluginModuleChild::InitForChrome(const std::string& aPluginFilename,
-     mozilla::plugins::PluginUtilsOSX::SetProcessName(nameBuffer);
+     }
  #endif
      pluginFile.FreePluginInfo(info);
--#if defined(MOZ_X11) || defined(XP_MACOSX)
+-#if defined(MOZ_X11)
 +#if 0
      if (!mLibrary)
  #endif
@@ -1066,8 +1065,8 @@ index 6ea205ef0..479bf49a9 100755
 -#ifdef MOZ_WIDGET_GTK
 +#if 0
  #include <glib.h>
- #elif XP_MACOSX
- #include "PluginInterposeOSX.h"
+ #endif
+
 @@ -1432,7 +1432,7 @@ PluginModuleChromeParent::AnswerNPN_SetValue_NPPVpluginRequiresAudioDeviceChange
  bool
  PluginModuleParent::RecvBackUpXResources(const FileDescriptor& aXSocketFd)
@@ -1081,7 +1080,7 @@ index 6ea205ef0..479bf49a9 100755
      module->CachedSettingChanged();
  }
  
--#if defined(XP_UNIX) && !defined(XP_MACOSX)
+-#if defined(XP_UNIX)
 +#if 0
  nsresult
  PluginModuleParent::NP_Initialize(NPNetscapeFuncs* bFuncs, NPPluginFuncs* pFuncs, NPError* error)
@@ -1092,7 +1091,7 @@ index 6ea205ef0..479bf49a9 100755
  }
 +#endif
 +
-+#if defined(XP_UNIX) && !defined(XP_MACOSX)
++#if defined(XP_UNIX)
 +nsresult PluginModuleParent::NP_Initialize(NPNetscapeFuncs* bFuncs,
 +                                           NPPluginFuncs* pFuncs,
 +                                           NPError* error) {
@@ -1111,11 +1110,11 @@ index 6ea205ef0..479bf49a9 100755
  bool
  PluginModuleParent::RecvNP_InitializeResult(const NPError& aError)
 @@ -2356,7 +2373,7 @@ PluginModuleParent::AnswerProcessSomeEvents()
-     return true;
  }
+ #endif // #if defined(XP_WIN)
  
--#elif !defined(MOZ_WIDGET_GTK)
-+#elif 1
+-#if !defined(MOZ_WIDGET_GTK)
++#if 1
  bool
  PluginModuleParent::AnswerProcessSomeEvents()
  {
